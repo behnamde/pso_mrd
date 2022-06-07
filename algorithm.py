@@ -85,7 +85,7 @@ class Graph:
                 "{start} and {goal}"
 
     def allPaths(self, start_end_nodes):
-        """Provides list of all pairs' path
+        """Provides list of all paths withoun common node
         
         Args:
             start_end_nodes (list): list of two lists
@@ -94,8 +94,10 @@ class Graph:
             
 
         Returns:
-            queue: a list of all paths' lists
-        """
+            list: a list of 2 elements 
+            _list_[0]: len(all uncommon paths' lists)
+            _list_[1]: all uncommon paths' list
+        """ 
         starts = start_end_nodes[0]
         destinations = start_end_nodes[1]
         
@@ -114,7 +116,7 @@ class Graph:
                         if not any(i in path 
                                    for i in item):
                             paths.append(path)
-        return paths
+        return [len(paths), paths]
 
     # def maxCount(self, colored_nodes):
     #     """Counting maximum paths for given 
@@ -144,8 +146,8 @@ class Graph:
     #                 break
     #     return len(collect)
     
-    def uncommonPathCount(self):
-        return len(self.allPaths(colored_nodes))
+    # def uncommonPathCount(self, start_end_nodes):
+    #     return len(self.allPaths(start_end_nodes))
 
   
 if __name__ == "__main__":
@@ -213,10 +215,10 @@ if __name__ == "__main__":
                       for i in range(lenght)]
         edges = final_list[1:-2]
         colored_nodes = final_list[-2:]
-        g = Graph(graph=None)
+        g = Graph()
         g.generateGraph(edges)
         print(f"max paths in {key} without "\
-            f"common node is {g.uncommonPathCount()}")
-        print(g.allPaths(colored_nodes))
+            f"common node is {g.allPaths(colored_nodes)[0]}")
+        print(g.allPaths(colored_nodes)[1])
 
 
