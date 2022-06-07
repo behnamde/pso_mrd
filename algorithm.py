@@ -116,33 +116,36 @@ class Graph:
                             paths.append(path)
         return paths
 
-    def maxCount(self, colored_nodes):
-        """Counting maximum paths for given 
-        colored_nodes that are start_end_nodes
-        while there is no common node in the 
-        two different path 
+    # def maxCount(self, colored_nodes):
+    #     """Counting maximum paths for given 
+    #     colored_nodes that are start_end_nodes
+    #     while there is no common node in the 
+    #     two different path 
 
-        Args:
-            colored_nodes (queue): a list of all
-            paths of colored nodes while one color
-            is start and the other is end
+    #     Args:
+    #         colored_nodes (queue): a list of all
+    #         paths of colored nodes while one color
+    #         is start and the other is end
 
-        Returns:
-            int: count of the maximum possible paths
-        """
-        pair_list = self.allPaths(colored_nodes)
-        collect = dict()
-        collect[tuple(pair_list[0])] = 0
+    #     Returns:
+    #         int: count of the maximum possible paths
+    #     """
+    #     pair_list = self.allPaths(colored_nodes)
+    #     collect = dict()
+    #     collect[tuple(pair_list[0])] = 0
         
-        # random.shuffle(pair_list)
+    #     # random.shuffle(pair_list)
 
-        for i in range(len(pair_list)):
-            for j in range(i+1):    
-                if not any(item in pair_list[i] for item in pair_list[j]):
-                    collect[tuple(pair_list[i])] = i
-                else:
-                    break
-        return len(collect)
+    #     for i in range(len(pair_list)):
+    #         for j in range(i+1):    
+    #             if not any(item in pair_list[i] for item in pair_list[j]):
+    #                 collect[tuple(pair_list[i])] = i
+    #             else:
+    #                 break
+    #     return len(collect)
+    
+    def uncommonPathCount(self):
+        return len(self.allPaths(colored_nodes))
 
   
 if __name__ == "__main__":
@@ -213,7 +216,7 @@ if __name__ == "__main__":
         g = Graph(graph=None)
         g.generateGraph(edges)
         print(f"max paths in {key} without "\
-            f"common node is {g.maxCount(colored_nodes)}")
+            f"common node is {g.uncommonPathCount()}")
         print(g.allPaths(colored_nodes))
 
 
