@@ -100,15 +100,21 @@ class Graph:
         destinations = start_end_nodes[1]
         
         # an empty list to append path lists into it
-        pair=[]
-        
+        paths=[]
+        paths.append(self.bestPath(starts[0],
+                                     destinations[0]))
         # loop for iterate all start and end nodes
         # excluding the start node and the end one
         for start in starts:
             for destination in destinations:
-                pair.append(self.bestPath(start,
-                                           destination)[1: -1])
-        return pair
+                path = self.bestPath(start,
+                                     destination)
+                if not path in paths:
+                    for item in paths:
+                        if not any(i in path 
+                                   for i in item):
+                            paths.append(path)
+        return paths
 
     def maxCount(self, colored_nodes):
         """Counting maximum paths for given 
@@ -182,6 +188,7 @@ if __name__ == "__main__":
         g = Graph(graph=None)
         g.generateGraph(edges)
         # print(g.all_pairs(colored_nodes))
-        print(f"max paths in {key} is {g.maxCount(colored_nodes)}")
+        # print(f"max paths in {key} is {g.maxCount(colored_nodes)}")
+        print(g.allPaths(colored_nodes))
 
 
