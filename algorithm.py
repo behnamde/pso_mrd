@@ -108,7 +108,7 @@ class Graph:
         for start in starts:
             for destination in destinations:
                 path = self.bestPath(start,
-                                     destination)
+                                     destination)[1: -1]
                 if not path in paths:
                     for item in paths:
                         if not any(i in path 
@@ -182,13 +182,15 @@ if __name__ == "__main__":
         lines = test_case.split('\n')
         # print(lines)
         lenght = len(lines)
-        final_list = [[int(item) for item in lines[i].split(' ')] for i in range(lenght)]
+        final_list = [[int(item) for item in 
+                       lines[i].split(' ')] 
+                      for i in range(lenght)]
         edges = final_list[1:-2]
         colored_nodes = final_list[-2:]
         g = Graph(graph=None)
         g.generateGraph(edges)
-        # print(g.all_pairs(colored_nodes))
-        # print(f"max paths in {key} is {g.maxCount(colored_nodes)}")
+        print(f"max paths in {key} without "\
+            f"common node is {g.maxCount(colored_nodes)}")
         print(g.allPaths(colored_nodes))
 
 
