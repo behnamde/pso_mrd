@@ -1,4 +1,6 @@
 from collections import defaultdict
+from distutils.log import error
+from tkinter.messagebox import NO
 
 class Graph:
     def __init__(self, graph=None) -> None :
@@ -132,19 +134,23 @@ class Graph:
     #     Returns:
     #         int: count of the maximum possible paths
     #     """
-    #     pair_list = self.allPaths(colored_nodes)
-    #     collect = dict()
-    #     collect[tuple(pair_list[0])] = 0
+    #     pair_list = self.allPaths(colored_nodes)[1]
+    #     # collect = dict()
+    #     # collect[tuple(pair_list[0])] = 0
         
     #     # random.shuffle(pair_list)
-
-    #     for i in range(len(pair_list)):
-    #         for j in range(i+1):    
-    #             if not any(item in pair_list[i] for item in pair_list[j]):
-    #                 collect[tuple(pair_list[i])] = i
-    #             else:
-    #                 break
-    #     return len(collect)
+    #     try:
+    #         for i in range(len(pair_list[:])):
+    #             for j in range(i+1):    
+    #                 if any(item in pair_list[i] for item in pair_list[j]):
+    #                     # collect[tuple(pair_list[i])] = i
+    #                     pair_list.remove(pair_list[j])
+    #         return pair_list
+    #                 # else:
+    #                 #     break
+    #     except:
+    #         return None
+        # return len(collect)
     
     # def uncommonPathCount(self, start_end_nodes):
     #     return len(self.allPaths(start_end_nodes))
@@ -220,5 +226,6 @@ if __name__ == "__main__":
         print(f"max paths in {key} without "\
             f"common node is {g.allPaths(colored_nodes)[0]}")
         print(g.allPaths(colored_nodes)[1])
+        # print(g.maxCount(colored_nodes))
 
 
