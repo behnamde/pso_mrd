@@ -84,7 +84,7 @@ class Graph:
 
         else: 
             return f"There is no connection between"\
-                "{start} and {goal}"
+                "{start} and {destination}"
 
     def allPaths(self, start_end_nodes):
         """Provides list of all paths for start/end nodes
@@ -224,7 +224,61 @@ if __name__ == "__main__":
 15 16
 15 17
 1 2 7 8 21
-11 12 16 17 18 20"""
+11 12 16 17 18 20""",
+'test_case_3': """25 5 5
+1 3
+3 4
+2 3
+4 5
+4 9
+5 6
+5 19
+6 7
+6 8
+6 21
+19 20
+9 10
+9 13
+10 11
+10 12
+13 18
+13 14
+14 15
+14 22
+15 16
+15 17
+22 24
+22 23
+23 25
+1 2 7 8 21
+11 12 16 18 25""",
+'test_case_4': """25 7 6
+1 3
+3 4
+2 3
+4 5
+4 9
+5 6
+5 19
+6 7
+6 8
+6 21
+19 20
+9 10
+9 13
+10 11
+10 12
+13 18
+13 14
+14 15
+14 22
+15 16
+15 17
+22 24
+22 23
+23 25
+1 2 7 8 21 24 17
+11 12 16 18 25 20"""
 }
 
     for key, test_case in test_cases.items():
@@ -238,8 +292,6 @@ if __name__ == "__main__":
         colored_nodes = final_list[-2:]
         g = Graph()
         g.generateGraph(edges)
-        print(f"max paths in {key} without "\
-            f"common node is {g.maxCount(colored_nodes)[0]}")
+        print(f"max paths in {key} without any "\
+            f"common node: {g.maxCount(colored_nodes)[0]}")
         print(g.maxCount(colored_nodes)[1])
-
-
