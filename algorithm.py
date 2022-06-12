@@ -87,7 +87,7 @@ class Graph:
                 "{start} and {goal}"
 
     def allPaths(self, start_end_nodes):
-        """Provides list of all paths withoun common node
+        """Provides list of all paths for start/end nodes
         
         Args:
             start_end_nodes (list): list of two lists
@@ -96,9 +96,7 @@ class Graph:
             
 
         Returns:
-            list: a list of 2 elements 
-            _list_[0]: len(all uncommon paths' lists)
-            _list_[1]: all uncommon paths' list
+            list: a list of all paths
         """ 
         starts = start_end_nodes[0]
         destinations = start_end_nodes[1]
@@ -108,49 +106,66 @@ class Graph:
         paths.append(self.bestPath(starts[0],
                                      destinations[0]))
         # loop for iterate all start and end nodes
-        # excluding the start node and the end one
+        # including the start node and the end one
         for start in starts:
             for destination in destinations:
-                path = self.bestPath(start,
-                                     destination)[1: -1]
-                if not path in paths:
-                    for item in paths:
-                        if not any(i in path 
-                                   for i in item):
-                            paths.append(path)
-        return [len(paths), paths]
+                # append a path using given start-end
+                # points
+                paths.append(self.bestPath(start,
+                                     destination))
+                # if not path in paths:
+                #     for item in paths:
+                #         if not any(i in path 
+                #                    for i in item):
+                #             paths.append(path)
+        return paths
 
-    # def maxCount(self, colored_nodes):
-    #     """Counting maximum paths for given 
-    #     colored_nodes that are start_end_nodes
-    #     while there is no common node in the 
-    #     two different path 
+    def maxCount(self, colored_nodes):
+        """Counting maximum paths for given 
+        colored_nodes that are start_end_nodes
+        while there is no common node in the 
+        two different path 
 
-    #     Args:
-    #         colored_nodes (queue): a list of all
-    #         paths of colored nodes while one color
-    #         is start and the other is end
+        Args:
+            colored_nodes (queue): a list of all
+            paths of colored nodes while one color
+            is start and the other is end
 
-    #     Returns:
-    #         int: count of the maximum possible paths
-    #     """
-    #     pair_list = self.allPaths(colored_nodes)[1]
-    #     # collect = dict()
-    #     # collect[tuple(pair_list[0])] = 0
+        Returns:
+            list: a list of 2 elements 
+            _list_[0]: len(all uncommon paths' lists)
+            _list_[1]: all uncommon paths' list
+        """
+        # path creator using colored nodes
+        path_list = self.allPaths(colored_nodes)
         
-    #     # random.shuffle(pair_list)
-    #     try:
-    #         for i in range(len(pair_list[:])):
-    #             for j in range(i+1):    
-    #                 if any(item in pair_list[i] for item in pair_list[j]):
-    #                     # collect[tuple(pair_list[i])] = i
-    #                     pair_list.remove(pair_list[j])
-    #         return pair_list
-    #                 # else:
-    #                 #     break
-    #     except:
-    #         return None
-        # return len(collect)
+        # preserved list for storing distinct paths
+        new_list = []
+        # check set for iterating the paths
+        # each new dictinct path will store 
+        # its elements here in a set
+        # elements of first memeber of the 
+        # input paths list will be preserved at first
+        check_set = set(path_list[0])
+        
+        # first member of the list will be always unique
+        new_list.append(path_list[0])
+        
+        # for loop to iterate the paths list
+        for item in path_list:
+            # check if any of nodes are in common or not
+            if not any(i in item for i in check_set):
+                # add new nodes to the check set
+                for i in item:
+                    check_set.add(i)
+                # append the item to new list
+                new_list.append(item)
+            # if there is any node in common loop will start
+            # again without doing anything
+            else:
+                pass
+        
+        return list((len(new_list), new_list))
     
     # def uncommonPathCount(self, start_end_nodes):
     #     return len(self.allPaths(start_end_nodes))
@@ -224,8 +239,7 @@ if __name__ == "__main__":
         g = Graph()
         g.generateGraph(edges)
         print(f"max paths in {key} without "\
-            f"common node is {g.allPaths(colored_nodes)[0]}")
-        print(g.allPaths(colored_nodes)[1])
-        # print(g.maxCount(colored_nodes))
+            f"common node is {g.maxCount(colored_nodes)[0]}")
+        print(g.maxCount(colored_nodes)[1])
 
 
