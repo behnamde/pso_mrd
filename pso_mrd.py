@@ -92,6 +92,6 @@ def pso_mrd_field(q=2, m=3, k=2, n=4, d_target=3, num_particles=8, max_iter=50, 
     return g_best, g_best_score
 
 # Example usage
-best_G, best_score = pso_mrd_field(q=2, m=3, k=2, n=4, d_target=3, use_generalized_weight=True)
-print("Best Generator Matrix:\n", best_G)
-print("Minimum Rank Distance:", best_score)
+# best_G, best_score = pso_mrd_field(q=2, m=3, k=2, n=4, d_target=3, use_generalized_weight=True)
+# print("Best Generator Matrix:\n", best_G)
+# print("Minimum Rank Distance:", best_score)
