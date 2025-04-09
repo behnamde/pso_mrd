@@ -1,6 +1,6 @@
 # 🧠 PSO-Guided Construction of MRD Codes in Rank Metric
 
-This repository provides a Python implementation of **Particle Swarm Optimization (PSO)** to discover and construct **Maximum Rank Distance (MRD) codes** in the **rank metric** space, using proper algebraic operations over finite fields \( \mathbb{F}_{q^m} \).
+This repository provides a Python implementation of **Particle Swarm Optimization (PSO)** to discover and construct **Maximum Rank Distance (MRD) codes** in the **rank metric** space, using proper algebraic operations over finite fields F_{q^m}.
 
 ## 🔧 Features
 
@@ -17,9 +17,8 @@ This repository provides a Python implementation of **Particle Swarm Optimizatio
 
 MRD codes are analogues of MDS codes under the rank metric. Their key property is achieving the **Singleton-like bound**:
 
-\[
-d \leq \min(n, m) - k + 1
-\]
+    d <= min(n, m) - k + 1
+
 
 Constructing MRD codes (e.g., Gabidulin codes) algebraically is known but limited in generality. This repo explores a **metaheuristic approach** using PSO to discover MRD codes from scratch, enabling discovery in underexplored parameter regimes.
 
