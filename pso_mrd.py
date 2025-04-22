@@ -23,6 +23,21 @@ import galois
 # ----------------------------------------------------------------------
 #  Helper routines
 # ----------------------------------------------------------------------
+def _get_field(arr):
+    """
+    Return the galois.GF field object associated with `arr`
+    in a way that works for both old and new galois versions.
+    """
+    # ≥ v0.4  →  ndarray.field
+    if hasattr(arr, "field"):
+        return arr.field
+    # ≤ v0.3  →  ndarray.GF
+    if hasattr(arr, "GF"):
+        return arr.GF
+    # Fallback (slow): derive from the element’s class
+    return type(arr[0, 0])
+
+
 def generate_nonzero_vectors(field, k):
     """
     All non‑zero vectors in F^k  (brute‑force, small k only).
@@ -60,7 +75,7 @@ def rank_distance(G):
     int
         d_min(G)  =  min_{u ≠ 0}  rank_𝔽q( Φ(uG) ).
     """
-    field = G.field
+    field = _get_field(G)
     k, n = G.shape
     min_rank = n  # upper bound
     for u in generate_nonzero_vectors(field, k):
@@ -88,7 +103,7 @@ def generalised_rank_weight(G, r=2):
     int
         d_r(G) = min_{U⊂𝔽_{q^m}^k, dim(U)=r}  rank_𝔽q( Φ(U·G) )
     """
-    field = G.field
+    field = _get_field(G)
     weights = []
     for comb in combinations(generate_nonzero_vectors(field, G.shape[0]), r):
         M = np.column_stack([ (u @ G).vector() for u in comb ])  # stack r codewords
@@ -148,6 +163,16 @@ def pso_mrd(
     -------
     (G_best, d_best)
         Best generator found and its d_min.
+
+    Similar expected results
+    -------
+    PSO‑guided search for small MRD codes …
+    Generalised rank weight r=2: 2
+    
+    Best generator matrix:
+     [[4 3 3 2]
+     [0 5 6 1]]
+    Achieved minimum rank distance: 2
     """
     field = galois.GF(q ** m)
 
@@ -200,12 +225,3 @@ if __name__ == "__main__":
     )
     print("\nBest generator matrix:\n", best_G)
     print("Achieved minimum rank distance:", best_d)
-
-
-# Similar Expected Result:
-# Testing the Implemented PSO-Guided Construction of MRD Codes in Rank Metric
-# Generalized Rank Weight (r=2): 0
-# Best Generator Matrix:
-#  [[0 4 3 3]
-#  [5 2 3 5]]
-# Minimum Rank Distance: 2
