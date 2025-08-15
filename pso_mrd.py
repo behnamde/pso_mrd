@@ -5,7 +5,7 @@ PSO‑Guided Construction of Maximum‑Rank‑Distance (MRD) Codes
 A minimal research prototype that employs Particle Swarm Optimisation (PSO) to
 search for MRD generator matrices in the rank‑metric setting.
 
-Author : Behnam & GPT‑4 co‑pilot 😎  
+Author : Behnam Dehghani  
 Deps   : numpy (≥1.24), galois (≥0.4)
 
 ---------------------------------------------------------------------------
